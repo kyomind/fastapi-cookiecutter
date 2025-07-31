@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     APP_NAME: str = "{{cookiecutter.project_name}}"
     DEBUG: bool = False
     ENV: str = "development"
-    LOG_LEVEL: str = "INFO"
 
     # Database settings (required)
     POSTGRES_USER: str
