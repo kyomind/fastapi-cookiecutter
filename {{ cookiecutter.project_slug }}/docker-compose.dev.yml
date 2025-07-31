@@ -1,0 +1,23 @@
+services:
+  app:
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    volumes:
+      - .:/code
+      # Critical: Use a named volume to isolate the container's virtual environment
+      - {{ cookiecutter.project_slug }}-venv-dev:/code/.venv
+      - ./logs:/code/logs # Bind mount logs directory
+    environment:
+      - ENV=development
+      - DEBUG=true
+    container_name: {{ cookiecutter.project_slug }}-app-dev
+
+  db:
+    environment:
+      - POSTGRES_DB={{ cookiecutter.project_slug }}_dev
+    container_name: {{ cookiecutter.project_slug }}-db-dev
+    volumes:
+      - {{ cookiecutter.project_slug }}-db-data-dev:/var/lib/postgresql/data
+
+volumes:
+  {{ cookiecutter.project_slug }}-venv-dev:
+  {{ cookiecutter.project_slug }}-db-data-dev:

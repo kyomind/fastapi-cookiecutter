@@ -1,0 +1,19 @@
+services:
+  app:
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--proxy-headers"]
+    environment:
+      - ENV=production
+    container_name: {{ cookiecutter.project_slug }}-app-prod
+    restart: always
+    volumes:
+      - ./logs:/code/logs # Bind mount logs directory
+  
+  db:
+    container_name: {{ cookiecutter.project_slug }}-db-prod
+    restart: always
+    volumes:
+      - {{ cookiecutter.project_slug }}-db-data-prod:/var/lib/postgresql/data
+
+volumes:
+  {{ cookiecutter.project_slug }}-db-data-prod:
+    external: true
