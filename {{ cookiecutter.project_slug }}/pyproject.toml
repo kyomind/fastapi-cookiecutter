@@ -1,4 +1,9 @@
 [project]
+description = "{{ cookiecutter.project_name }}"
+name = "{{ cookiecutter.project_slug }}"
+readme = "README.md"
+requires-python = ">={{cookiecutter.python_version}}"
+version = "0.1.0"
 dependencies = [
   "alembic>=1.16.1",
   "fastapi>=0.115.12",
@@ -8,11 +13,6 @@ dependencies = [
   "sqlalchemy>=2.0.40",
   "uvicorn[standard]>=0.34.2",
 ]
-description = "{{ cookiecutter.project_name }}"
-name = "{{ cookiecutter.project_slug }}"
-readme = "README.md"
-requires-python = ">={{cookiecutter.python_version}}"
-version = "0.1.0"
 
 [dependency-groups]
 dev = [
@@ -100,3 +100,11 @@ markers = [
 ]
 python_files = ["test_*.py"]
 testpaths = ["tests"]
+
+[tool.pyright]
+exclude = [
+  ".venv",
+]
+typeCheckingMode = "basic"
+venv = ".venv"
+venvPath = "."
